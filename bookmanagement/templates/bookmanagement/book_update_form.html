@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block boxtitle %}
+    修改图书信息
+{% endblock %}
+{% block currentbook %}current{% endblock %}
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    <fieldset>
+            <!-- Set class to "column-left" or "column-right" on fieldsets to divide the form into columns -->
+            {{ form.as_p }}
+        <input type="submit" value="Update" />
+    </fieldset>
+</form>
+    <script language="JavaScript">
+    var moveattr = {
+        'input[type="text"]':'maxlength'
+    }
+    var classchange = {
+        'input':'text-input medium-input',
+        'select':'medium-input'
+    }
+
+    </script>
+{% endblock %}

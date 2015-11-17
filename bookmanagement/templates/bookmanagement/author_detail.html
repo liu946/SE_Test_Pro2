@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block boxtitle %}
+    作者详细信息
+{% endblock %}
+{% block currentauthor %}current{% endblock %}
+{% block content %}
+<h1 style="position: inherit; color: #222222;margin-bottom: 20px">{{ object.Name }}</h1>
+<p><span class="item_title">Age</span> {{ object.Age }}</p>
+<p><span class="item_title">Country</span> {{ object.get_Country_display }}</p>
+<p><span class="item_title">AuthorID</span> {{  object.AuthorID  }}</p>
+<p style="font-size: large">
+<a href="../../update/{{ object.AuthorID }}" class="large buttoni blue">修改信息</a>
+<a href="../../delete/{{ object.AuthorID }}" class="large buttoni red">删除信息</a>
+</p>
+    <style>
+    .item_title {
+            min-width: 85px;
+    display: inline-table;
+    text-align: right;
+    padding-right: 24px;
+    font-size: 16px;
+    }
+    </style>
+{% endblock %}

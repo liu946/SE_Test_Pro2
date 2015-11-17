@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block boxtitle %}
+    作家列表
+{% endblock %}
+{% block currentauthor %}current{% endblock %}
+{% block content %}
+    <form id="form" method="post" action="./deleteAll">{% csrf_token %}
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <input class="check-all" type="checkbox"/>
+            </th>
+            <th>作家ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>国籍</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="6">
+                <div class="bulk-actions align-left">
+                    <a class="buttoni red" type="submit" onclick="$('#form').submit()">Delete selected</a>
+                    <a class="buttoni green" href="./create/">Create New</a>
+                </div>
+                <!-- End .pagination -->
+                <div class="clear"></div>
+            </td>
+        </tr>
+        </tfoot>
+        <tbody>
+        {% for author in object_list %}
+        <tr>
+            <td>
+                <input type="checkbox" name="{{ author.AuthorID }}" />
+            </td>
+            <td>{{ author.AuthorID }}</td>
+            <td><a href="./detail/{{ author.AuthorID }}">{{ author.Name }}</a></td>
+            <td>{{ author.Age }}</td>
+            <td>{{ author.get_Country_display  }}</td>
+            <td>
+                <!-- Icons -->
+                <a href='./update/{{ author.AuthorID }}' title="Edit"><img src="{% static 'images/icons/pencil.png' %}" alt="Edit"/></a>
+                <a href='./delete/{{ author.AuthorID }}' title="Delete"><img src="{% static 'images/icons/cross.png' %}" alt="Delete"/></a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </form>
+{% endblock %}

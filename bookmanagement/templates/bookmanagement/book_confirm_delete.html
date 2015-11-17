@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block boxtitle %}
+    删除确认
+{% endblock %}
+{% block currentbook %}current{% endblock %}
+{% block content %}
+    <form action="" id="form" method="post">{% csrf_token %}
+    <p style="    font-size: x-large; margin: 20px">是否删除 《{{ object }}》?</p>
+    <a class="buttoni red" style="margin: 20px" type="submit" onclick="$('#form').submit()">确认删除</a>
+</form>
+{% endblock %}

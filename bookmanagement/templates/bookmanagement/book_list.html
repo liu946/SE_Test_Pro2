@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block currentbook %}current{% endblock %}
+{% load staticfiles %}
+
+{% block boxtitle %}
+    图书列表
+{% endblock %}
+
+{% block content %}
+    <div style="    padding-left: 23%;margin: 3%">
+        <form id="search" method="get" action="./search">
+            <input class='text-input medium-input' type="text" name="search" style="margin-right: 5%">
+            <a class="buttoni blue large" type="submit" onclick="$('#search').submit()">&nbsp;&nbsp;按作者搜索&nbsp;&nbsp;</a>
+        </form>
+    </div>
+    <form id='form' method="post" action="./deleteAll">{% csrf_token %}
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <input class="check-all" type="checkbox"/>
+            </th>
+            <th>书本ISBN</th>
+            <th>书名</th>
+            <th>作者</th>
+            <th>发行商</th>
+            <th>发行日期</th>
+            <th>价格</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <td colspan="6">
+                <div class="bulk-actions align-left">
+                    <a class="buttoni red" type="submit" onclick="$('#form').submit()">Delete selected</a>
+                    <a class="buttoni green" href="./create/">Create New</a>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+        <tbody>
+        {% for book in object_list %}
+        <tr>
+            <td>
+                <input type="checkbox" name="{{ book.ISBN }}" />
+            </td>
+            <td>{{ book.ISBN }}</td>
+            <td><a href="./detail/{{ book.ISBN }}">{{ book.Title }}</a></td>
+            <td>{{ book.Author }}({{ book.Author.Country }})</td>
+            <td>{{ book.Publisher }}</td>
+            <td>{{ book.PublishDate }}</td>
+            <td>{{ book.Price }} ￥</td>
+
+            <td>
+                <!-- Icons -->
+                <a href='./update/{{ book.ISBN }}' title="Edit"><img src="{% static 'images/icons/pencil.png' %}" alt="Edit"/></a>
+                <a href='./delete/{{ book.ISBN }}' title="Delete"><img src="{% static 'images/icons/cross.png' %}" alt="Delete"/></a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </form>
+{% endblock %}
